@@ -22,4 +22,22 @@ app.get("/api/hello", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
+io.on("connection", (socket) => {
+  console.log("a user connected");
+
+  socket.on("send image", (imgUrl) => {
+    console.log("Bild-URL empfangen:", imgUrl);
+    io.emit("receive image", imgUrl);
+  });
+
+  socket.on("image clicked", (data) => {
+    console.log("Client hat auf das Bild geklickt:", data);
+    io.emit("image was clicked", true);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
+
 server.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));

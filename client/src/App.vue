@@ -3,8 +3,6 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <h1 class="text-3xl bg-gray-500">Test Tailwind</h1>
-
   <RouterView />
 </template>
 
