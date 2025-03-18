@@ -30,9 +30,9 @@ io.on("connection", (socket) => {
     io.emit("receive image", imgUrl);
   });
 
-  socket.on("image clicked", (data) => {
-    console.log("Client hat auf das Bild geklickt:", data);
-    io.emit("image was clicked", true);
+  socket.on("image clicked", (imgUrl) => {
+    console.log("Client hat auf das Bild geklickt:", imgUrl);
+    io.emit("image was clicked", imgUrl);
   });
 
   socket.on("disconnect", () => {

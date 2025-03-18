@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import SocketioService from './../services/socketio.service.ts'
+import type ImageData from '@/models/ImageData.interface.ts'
 const USERNAME = 'Kinder'
 
 const imageUrl = ref<string | null>(null)
+const image = ref<ImageData | null>(null)
 
 onMounted(() => {
   SocketioService.setupSocketConnection()
   SocketioService.socket.on('receive image', (url: string) => {
-    console.log('Bild empfangen:', url)
     imageUrl.value = url
   })
 })
@@ -18,7 +19,10 @@ onBeforeUnmount(() => {
 })
 
 const handleImageClick = () => {
-  SocketioService.sendImageClick()
+  if (imageUrl.value) {
+    SocketioService.socket.emit('image clicked', imageUrl.value)
+    imageUrl.value = null
+  }
 }
 </script>
 <template>
