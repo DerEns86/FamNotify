@@ -82,7 +82,6 @@ const clearMessanges = () => {
         />
       </div>
     </div>
-    <p v-if="wasClicked">Das Bild wurde angeklickt!</p>
   </section>
 </template>
 
